@@ -1,1 +1,83 @@
-/* No CSS *//*# sourceMappingURL=index.css.map */
+.convertor {
+  padding: 1rem;
+  background: #fff;
+  width: 320px;
+  border-radius: 5px;
+  -webkit-box-shadow: 3px 1px 5px #dbdbdb;
+          box-shadow: 3px 1px 5px #dbdbdb;
+}
+
+.convertor .convertor__header {
+  text-align: center;
+  margin: 3rem 0;
+  color: #222;
+}
+
+.convertor .convertor__header h1 {
+  margin-top: 10px;
+}
+
+.convertor .convertor__body {
+  padding: 1rem;
+}
+
+.convertor .convertor__body .convertor__body__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.convertor .convertor__body .convertor__body__form label {
+  margin-top: 10px;
+  width: 100%;
+  color: #333;
+}
+
+.convertor .convertor__body .convertor__body__form input,
+.convertor .convertor__body .convertor__body__form select {
+  padding: 0.5rem;
+  width: 100%;
+  outline: none;
+  border: 1px solid #dbdbdb;
+  -webkit-transition: border-color 0.1s ease-in;
+  transition: border-color 0.1s ease-in;
+}
+
+.convertor .convertor__body .convertor__body__form input:hover,
+.convertor .convertor__body .convertor__body__form select:hover {
+  border-color: #4392fe;
+}
+
+.convertor .convertor__body .convertor__body__form .convertor__body__form__currencies {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.convertor .convertor__body .convertor__body__form .convertor__body__form__currencies i {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 2rem;
+  width: auto;
+  color: #4392fe;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.convertor .convertor__body .convertor__body__form .convertor__body__form__currencies i:hover {
+  -webkit-transform: rotatey(180deg);
+          transform: rotatey(180deg);
+}
+/*# sourceMappingURL=index.css.map */
