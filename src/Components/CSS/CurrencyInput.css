@@ -1,0 +1,25 @@
+.currencyInput {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.currencyInput label {
+  width: 100%;
+  color: #333;
+}
+
+.currencyInput input,
+.currencyInput select {
+  padding: 0.5rem;
+  width: 100%;
+  outline: none;
+  border: 1px solid #dbdbdb;
+  -webkit-transition: border-color 0.1s ease-in;
+  transition: border-color 0.1s ease-in;
+}
+
+.currencyInput input:hover,
+.currencyInput select:hover {
+  border-color: #4392fe;
+}
+/*# sourceMappingURL=CurrencyInput.css.map */

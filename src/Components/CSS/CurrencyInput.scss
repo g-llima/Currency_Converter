@@ -1,0 +1,22 @@
+.currencyInput {
+  width: 100%;
+  margin: 1rem 0;
+
+  label {
+    width: 100%;
+    color: #333;
+  }
+
+  input,
+  select {
+    padding: 0.5rem;
+    width: 100%;
+    outline: none;
+    border: 1px solid #dbdbdb;
+    transition: border-color 0.1s ease-in;
+
+    &:hover {
+      border-color: #4392fe;
+    }
+  }
+}
