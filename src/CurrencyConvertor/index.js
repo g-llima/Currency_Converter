@@ -24,8 +24,9 @@ function Convertor() {
   const getAmount = () => {
     const amountResult =
       (rates[data.convertTo] / rates[data.convertFrom]) * data.amount;
-    let decimals = 2;
+    let decimals = 0;
     while (amountResult.toFixed(decimals) == 0) {
+      if (decimals === 10) break;
       decimals += 1;
     }
     return amountResult.toFixed(decimals);
@@ -54,7 +55,13 @@ function Convertor() {
             id="valor"
             name="valor"
             value={data.amount}
-            onChange={(e) => setData({ ...data, ["amount"]: e.target.value })}
+            onChange={(e) => {
+              if (e.target.value <= 0 || e.target.value == undefined) {
+                setData({ ...data, ["amount"]: 1 });
+                return;
+              }
+              setData({ ...data, ["amount"]: e.target.value });
+            }}
           />
 
           <div className="convertor__body__form__currencies">
