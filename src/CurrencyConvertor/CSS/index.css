@@ -1,10 +1,15 @@
 .convertor {
   padding: 1rem;
   background: #fff;
-  width: 320px;
+  width: 300px;
+  position: relative;
   border-radius: 5px;
+  border: 1px solid #dbdbdb;
   -webkit-box-shadow: 3px 1px 5px #dbdbdb;
           box-shadow: 3px 1px 5px #dbdbdb;
+  opacity: 0;
+  -webkit-animation: appearAnimation 1s ease-out forwards;
+          animation: appearAnimation 1s ease-out forwards;
 }
 
 .convertor .convertor__header {
@@ -70,14 +75,35 @@
   text-align: center;
   font-size: 2rem;
   width: auto;
-  color: #4392fe;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  color: #222;
+  -webkit-transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
   cursor: pointer;
 }
 
 .convertor .convertor__body .convertor__body__form .convertor__body__form__currencies i:hover {
-  -webkit-transform: rotatey(180deg);
-          transform: rotatey(180deg);
+  color: #4392fe;
+}
+
+@-webkit-keyframes appearAnimation {
+  0% {
+    bottom: 10px;
+    opacity: 0;
+  }
+  100% {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes appearAnimation {
+  0% {
+    bottom: 10px;
+    opacity: 0;
+  }
+  100% {
+    bottom: 0;
+    opacity: 1;
+  }
 }
 /*# sourceMappingURL=index.css.map */

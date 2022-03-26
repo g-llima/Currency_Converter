@@ -6,6 +6,7 @@ function CurrencyInput({ currencies, currency, title, change }) {
     <div className="currencyInput">
       <label htmlFor="moeda1">{title}</label>
       <select id="moeda1" name="moeda1" value={currency} onChange={change}>
+        {/* RETURN ALL CURRENCIES */}
         {currencies.map((item, index) => (
           <option key={index} value={item}>
             {item}
