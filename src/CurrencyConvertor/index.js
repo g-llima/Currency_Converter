@@ -28,7 +28,13 @@ function Convertor() {
     return amountResult.toFixed(decimals).replace(".", ",");
   };
 
-  console.log(getAmount().length);
+  function swapCurrencies() {
+    let valUp = data.convertFrom;
+    let valDown = data.convertTo;
+
+    setData({ ...data, ["convertTo"]: valUp, ["convertFrom"]: valDown });
+  }
+  console.log(data);
 
   useEffect(() => {
     if (data.amount === isNaN) {
@@ -74,7 +80,10 @@ function Convertor() {
                 setData({ ...data, ["convertFrom"]: e.target.value })
               }
             />
-            <i className="fa-solid fa-arrow-right-arrow-left"></i>
+            <i
+              className="fa-solid fa-arrow-right-arrow-left"
+              onClick={() => swapCurrencies()}
+            ></i>
             <CurrencyInput
               currencies={Object.keys(rates)}
               title="Para"
