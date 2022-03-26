@@ -16,21 +16,19 @@ function Convertor() {
     const response = await axios.get(
       `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.REACT_APP_EXCHANGERATEAPI_KEY}&format=1`
     );
-    console.log(response.data);
     setRates(response.data.rates);
-    console.log(data);
-    console.log(rates);
   };
   const getAmount = () => {
     const amountResult =
       (rates[data.convertTo] / rates[data.convertFrom]) * data.amount;
-    let decimals = 0;
+    let decimals = 2;
     while (amountResult.toFixed(decimals) == 0) {
-      if (decimals === 10) break;
       decimals += 1;
     }
-    return amountResult.toFixed(decimals);
+    return amountResult.toFixed(decimals).replace(".", ",");
   };
+
+  console.log(getAmount().length);
 
   useEffect(() => {
     if (data.amount === isNaN) {
@@ -44,7 +42,9 @@ function Convertor() {
     <div className="convertor">
       <div className="convertor__header">
         <p>{data.convertTo}</p>
-        <h1>{getAmount()}</h1>
+        <h1 style={{ fontSize: getAmount().length >= 14 ? "22px" : "32px" }}>
+          {getAmount()}
+        </h1>
       </div>
 
       <div className="convertor__body">
