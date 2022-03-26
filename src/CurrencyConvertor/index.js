@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./CSS/index.css";
 import CurrencyInput from "../Components/CurrencyInput";
+import HashLoader from "react-spinners/HashLoader";
 
 function Convertor() {
   const [data, setData] = useState({
@@ -11,6 +12,7 @@ function Convertor() {
     result: "",
   });
   const [rates, setRates] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   // GET API EXCHANGE RATES & ADD IT TO THE 'RATES' USESTATE
   const getCurrencyConvertor = async () => {
@@ -18,6 +20,7 @@ function Convertor() {
       `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.REACT_APP_EXCHANGERATEAPI_KEY}&format=1`
     );
     setRates(response.data.rates);
+    setLoading(false);
   };
 
   // GET THE VALUE TO BE DISPLAYED
@@ -39,62 +42,73 @@ function Convertor() {
   }
 
   useEffect(() => {
+    setLoading(true);
     getCurrencyConvertor();
   }, []);
 
   return (
-    <div className="convertor">
-      {/* HEADER */}
-      <div className="convertor__header">
-        <p>{data.convertTo}</p>
-        <h1 style={{ fontSize: getAmount().length >= 14 ? "20px" : "32px" }}>
-          {getAmount()}
-        </h1>
-      </div>
-
-      {/* BODY */}
-      <div className="convertor__body">
-        <form className="convertor__body__form">
-          <label htmlFor="valor">Valor</label>
-          <input
-            type="number"
-            id="valor"
-            name="valor"
-            value={data.amount}
-            onChange={(e) => {
-              if (e.target.value <= 0 || e.target.value === undefined) {
-                setData({ ...data, amount: 1 });
-                return;
-              }
-              setData({ ...data, amount: e.target.value });
-            }}
-          />
-
-          {/* CURRENCIES INPUTS */}
-          <div className="convertor__body__form__currencies">
-            <CurrencyInput
-              currencies={Object.keys(rates)}
-              title="De"
-              currency={data.convertFrom}
-              change={(e) => setData({ ...data, convertFrom: e.target.value })}
-            />
-
-            {/* SWAP ICON */}
-            <i
-              className="fa-solid fa-arrow-right-arrow-left"
-              onClick={() => swapCurrencies()}
-            ></i>
-
-            <CurrencyInput
-              currencies={Object.keys(rates)}
-              title="Para"
-              currency={data.convertTo}
-              change={(e) => setData({ ...data, convertTo: e.target.value })}
-            />
+    <>
+      {loading ? (
+        <HashLoader size={100} color={"#D7365D"} loading={loading} />
+      ) : (
+        <div className="convertor">
+          <div className="convertor__header">
+            <p>{data.convertTo}</p>
+            <h1
+              style={{ fontSize: getAmount().length >= 14 ? "20px" : "32px" }}
+            >
+              {getAmount()}
+            </h1>
           </div>
-        </form>
-      </div>
-    </div>
+          {/* BODY */}
+          <div className="convertor__body">
+            <form className="convertor__body__form">
+              <label htmlFor="valor">Valor</label>
+              <input
+                type="number"
+                id="valor"
+                name="valor"
+                value={data.amount}
+                onChange={(e) => {
+                  if (e.target.value <= 0 || e.target.value === undefined) {
+                    setData({ ...data, amount: 1 });
+                    return;
+                  }
+                  setData({ ...data, amount: e.target.value });
+                }}
+              />
+
+              {/* CURRENCIES INPUTS */}
+              <div className="convertor__body__form__currencies">
+                <CurrencyInput
+                  currencies={Object.keys(rates)}
+                  title="De"
+                  currency={data.convertFrom}
+                  change={(e) =>
+                    setData({ ...data, convertFrom: e.target.value })
+                  }
+                />
+
+                {/* SWAP ICON */}
+                <i
+                  className="fa-solid fa-arrow-right-arrow-left"
+                  onClick={() => swapCurrencies()}
+                ></i>
+
+                <CurrencyInput
+                  currencies={Object.keys(rates)}
+                  title="Para"
+                  currency={data.convertTo}
+                  change={(e) =>
+                    setData({ ...data, convertTo: e.target.value })
+                  }
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
