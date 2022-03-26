@@ -3,38 +3,47 @@ import axios from "axios";
 import "./CSS/index.css";
 import CurrencyInput from "../Components/CurrencyInput";
 
-const currencies = ["USD", "SGD", "PHP", "EUR", "INR"];
-
 function Convertor() {
   const [data, setData] = useState({
-    currencies: ["USD", "SGD", "PHP", "EUR", "INR"],
-    amount: "",
+    amount: 10,
     convertFrom: "USD",
-    converTo: "BRL",
+    convertTo: "BRL",
     result: "",
   });
+  const [rates, setRates] = useState([]);
 
   const getCurrencyConvertor = async () => {
     const response = await axios.get(
       `http://api.exchangeratesapi.io/v1/latest?access_key=${process.env.REACT_APP_EXCHANGERATEAPI_KEY}&format=1`
     );
     console.log(response.data);
+    setRates(response.data.rates);
+    console.log(data);
+    console.log(rates);
   };
-  function exchange(from, to, valor) {}
+  const getAmount = () => {
+    const amountResult =
+      (rates[data.convertTo] / rates[data.convertFrom]) * data.amount;
+    let decimals = 2;
+    while (amountResult.toFixed(decimals) == 0) {
+      decimals += 1;
+    }
+    return amountResult.toFixed(decimals);
+  };
 
   useEffect(() => {
     if (data.amount === isNaN) {
       return;
     } else {
-      //getCurrencyConvertor();
+      getCurrencyConvertor();
     }
   }, []);
 
   return (
     <div className="convertor">
       <div className="convertor__header">
-        <p>Taxa de Câmbio</p>
-        <h1>$27.77</h1>
+        <p>{data.convertTo}</p>
+        <h1>{getAmount()}</h1>
       </div>
 
       <div className="convertor__body">
@@ -51,7 +60,7 @@ function Convertor() {
           <div className="convertor__body__form__currencies">
             {/*  */}
             <CurrencyInput
-              currencies={currencies}
+              currencies={Object.keys(rates)}
               title="De"
               currency={data.convertFrom}
               change={(e) =>
@@ -60,7 +69,7 @@ function Convertor() {
             />
             <i className="fa-solid fa-arrow-right-arrow-left"></i>
             <CurrencyInput
-              currencies={currencies}
+              currencies={Object.keys(rates)}
               title="Para"
               currency={data.convertTo}
               change={(e) =>
